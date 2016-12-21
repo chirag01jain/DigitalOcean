@@ -1,0 +1,44 @@
+#cloud-config
+users:
+  - name: user1
+    groups: Project
+    gecos: Test user 1
+    shell: /bin/bash
+  - name: user2
+    gecos: Test user 1
+groups:
+  - Coding: [user1, user2]
+chpasswd:
+  list: |
+    user1: avoidpassword
+    user2: RANDOM
+    expire: false
+write_files:
+  - path: /root/hello.txt
+    content: |
+    My first file using config script
+    I used write_files directive and path,content as a member list to create this file
+    permissions: 1775
+    owner: "user1:user1"
+  - path: /root/hello2.txt
+    content: |
+    My 2nd file using config script
+    I used write_files directive and path,content as a member list to create this file
+    permissions: 0744
+    owner: "user2:user2"  
+packages: 
+  - httpd
+  - ftp
+manage-resolv-conf: true
+resolv_conf
+  nameservers:
+    - '8.8.8.8'
+    - '8.8.4.4'
+runcmd:
+  - [cat, hello1]
+  - [grep, user1, /etc/passwd]
+power_state:
+  timeout: 120
+  delay: "+5"
+  message: System will reboot in five minutes. Please save your work.
+  mode: reboot
