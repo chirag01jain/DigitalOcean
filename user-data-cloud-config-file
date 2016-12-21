@@ -1,0 +1,18 @@
+#cloud-config
+users:
+  - name: do2-user
+      ssh-authorized-keys: 
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQC/4mzewo47ydfW4OM8cLhsa+xltZxzmd2waSXkzP37wwN5h/wUopMgsnVszfntlhCZhEakCQoHDv5gPbQ51Ku5CklXB2JgY4z8wpK98F08UVeGXqruXU20ALhgtqsG+eo5X4slFC42ILirI42ylxFJ4kFajeHdjMRrjEKF1VzP0EHdWlmkVY0Ddb3F5k8FQNqIw4jKucTVWvi9iOBx+dJk5VlpWeoWQ6nA9JJXQ7z412V6M0b9AfcdD5yQ/Cic6V6d3H461owaVrlVDL1FTrElFXN+wZHbijTTQS5eQZv2Xbcw2S7SmJ1UerCEe5hdwEczVlOE35b+KkpXOkpB9f+7 root@centos-512mb-1stinstance
+      sudo: ['ALL=(ALL) NOPASSWD:ALL']
+      groups: sudo
+      shell: /bin/bash
+#Avoid use of chpasswd, available to all user, use it only for testing (if needed)
+chpasswd:
+  list: |
+    root:redhat@123   
+    expire: False
+runcmd:
+  - sed -i -e '/^Port/s/^.*$/Port 4444/' etc/ssh/sshd_config
+  - sed -i -e '/^PermitRootLogin/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
+  - sed -i -e '$aAllowUsers demo' /etc/ssh/sshd_config
+  - restart ssh
