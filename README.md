@@ -1,2 +1,3 @@
 # DigitalOcean
-Stuff related to DigitalOcean (Cloud service provider)
+
+Simplify Infrastructure need for Software Developers
