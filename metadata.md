@@ -1,10 +1,10 @@
-####*Droplets* can be created through the DO Control Panel or API (POST request).
+###*Droplets* can be created through the DO Control Panel or API (POST request).
 
-#####*MetaData* is a service provided by DigitalOcean that features droplets to access data about itself. This data includes:
+####*MetaData* is a service provided by DigitalOcean that features droplets to access data about itself. This data includes:
 
 1. Droplet ID
 2. Droplet IP
-3. Datacenter region and user-data specified
+3. Datacenter region
 4. User-data
 
 Any action that you can perform via DO Control panel can also be performed via its API. MetaData functionality allow you to configure droplets even without logging in by specifying arbitary data in *'user-data'* section. 
